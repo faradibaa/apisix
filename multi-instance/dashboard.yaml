@@ -1,0 +1,34 @@
+conf:
+  listen:
+    host: 0.0.0.0
+    port: 9000
+    #port: 9001
+    #port: 9002
+  etcd:
+    endpoints:
+      # CLUSTER 1
+      - :2379
+      - :2479
+      - :2579
+      # CLUSTER 2
+      #- :3379
+      #- :3479
+      #- :3579
+      # CLUSTER 3
+      #- :4379
+      #- :4479
+      #- :4579
+
+  log:
+    error_log:
+      level: debug
+      file_path:
+        /tmp/logs/error.log
+
+authentication:
+  secret:
+    secret
+  expire_time: 3600
+  users:
+    - username: admin
+      password: admin
