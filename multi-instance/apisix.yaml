@@ -3,7 +3,6 @@ apisix:
     - ip: 0.0.0.0
       port: 9080
       #port: 9081
-      #port: 9082
   enable_admin: true
   config_center: etcd
 
@@ -13,7 +12,6 @@ apisix:
     ip: 0.0.0.0
     port: 9180
     #port: 9181
-    #port: 9182
 
   admin_key:
     -
@@ -35,14 +33,10 @@ etcd:
     #- "http://:3379"
     #- "http://:3479"
     #- "http://:3579"
-    # CLUSTER 3
-    #- "http://:4379"
-    #- "http://:4479"
-    #- "http://:4579"
 
+  #prefix: /apisix
   prefix: /apisix-one
   #prefix: /apisix-two
-  #prefix: /apisix-three
 
 discovery:
   dns:
