@@ -1,0 +1,68 @@
+x-base-apisix: &base-apisix
+  image: apache/apisix:2.15.0-alpine
+  network_mode: default
+  restart: unless-stopped
+
+x-base-dashboard: &base-dashboard
+  image: apache/apisix-dashboard:2.15.0-alpine
+  network_mode: default
+  restart: unless-stopped
+
+services:
+
+  apisix-1:
+    <<: *base-apisix
+    container_name: apisix-1
+    ports:
+      - "9080:9080"
+      - "9180:9180"
+    volumes:
+      - ./apisix1.yaml:/usr/local/apisix/conf/config.yaml
+
+  apisix-dashboard-1:
+    <<: *base-dashboard
+    container_name: apisix-dashboard-1
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./dashboard-conf1.yaml:/usr/local/apisix-dashboard/conf/conf.yaml
+      - ./dashboard1.log:/tmp/logs/error.log
+
+  apisix-2:
+    <<: *base-apisix
+    container_name: apisix-2
+    ports:
+      - "9081:9081"
+      - "9181:9181"
+    volumes:
+      - ./apisix2.yaml:/usr/local/apisix/conf/config.yaml
+
+  apisix-dashboard-2:
+    <<: *base-dashboard
+    container_name: apisix-dashboard-2
+    ports:
+      - "9001:9001"
+    volumes:
+      - ./dashboard-conf2.yaml:/usr/local/apisix-dashboard/conf/conf.yaml
+      - ./dashboard2.log:/tmp/logs/error.log
+
+  apisix-v3:
+    image: apache/apisix:3.0.0-debian
+    network_mode: default
+    restart: unless-stopped
+    container_name: apisix-v3
+    ports:
+      - "9082:9082"
+      - "9182:9182"
+    volumes:
+      - ./apisix-v3.yaml:/usr/local/apisix/conf/config.yaml
+
+  apisix-dashboard-v3:
+    image: apache/apisix-dashboard:3.0.0-alpine
+    network_mode: default
+    restart: unless-stopped
+    ports:
+      - "9002:9002"
+    volumes:
+      - ./dashboard-conf-v3.yaml:/usr/local/apisix-dashboard/conf/conf.yaml
+      - ./dashboard-v3.log:/tmp/logs/error.log
